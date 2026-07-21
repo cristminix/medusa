@@ -1,0 +1,62 @@
+# Build outputs and compiled artifacts
+dist/**
+build/**
+**/dist/**
+**/build/**
+**/.turbo/**
+
+# Package manager artifacts
+node_modules/**
+**/node_modules/**
+.yarn/**
+.yarn/cache/**
+yarn.lock
+*.lock
+*.tsbuildinfo
+**/*.tsbuildinfo
+
+# MedusaJS generated/runtime dirs
+**/.medusa/**
+.medusa/**
+
+# Test & cache artifacts
+**/.cache/**
+**/coverage/**
+**/__mocks__/**
+
+# Auto-generated DB migrations (not source logic)
+**/migrations/**
+
+# Documentation site (www/) — large, not code
+www/**
+
+# Integration test fixtures / snapshots (optional: remove if you want them indexed)
+integration-tests/**/__snapshots__/**
+
+# CI/config generated files
+.changeset/**
+.github/**
+
+# Binary and media assets
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.ico
+*.ttf
+*.woff
+*.woff2
+*.eot
+*.mp4
+*.webm
+*.zip
+*.tar
+*.tar.gz
+
+# Misc non-code
+*.lock
+output.txt
+script.sh
+CHANGELOG.md
+LICENSE

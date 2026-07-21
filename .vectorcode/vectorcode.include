@@ -1,0 +1,47 @@
+# Core TypeScript source files (monorepo packages)
+packages/**/*.ts
+packages/**/*.tsx
+
+# Main medusa server source
+packages/medusa/src/**/*.ts
+
+# Core framework & SDK
+packages/core/**/*.ts
+packages/core/**/*.tsx
+
+# All business modules
+packages/modules/**/*.ts
+packages/modules/**/*.tsx
+
+# Admin dashboard (React/TypeScript UI)
+packages/admin/**/*.ts
+packages/admin/**/*.tsx
+
+# CLI tools
+packages/cli/**/*.ts
+
+# Design system
+packages/design-system/**/*.ts
+packages/design-system/**/*.tsx
+
+# Plugins
+packages/plugins/**/*.ts
+packages/plugins/**/*.tsx
+
+# Shared test utilities
+packages/medusa-test-utils/**/*.ts
+packages/medusa-telemetry/**/*.ts
+packages/deps/**/*.ts
+
+# JavaScript source files (build scripts, config, utilities)
+scripts/**/*.js
+scripts/**/*.mjs
+
+# Integration tests (TypeScript)
+integration-tests/**/*.ts
+integration-tests/**/*.tsx
+
+# Root-level config scripts
+*.js
+*.mjs
+*.cjs
