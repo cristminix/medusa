@@ -22,29 +22,26 @@ export async function GET(req: NextRequest, { params }: Params) {
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ""
   const isCloudflare = !!process.env.CLOUDFLARE_ENV
 
-  const fileContent = await workerCompatibleFetch<string | null>({
+  let fileContent = await workerCompatibleFetch<string | null>({
     url: `${origin}${basePath}/raw-mdx/${[...slug, "page.mdx"].join("/")}`,
     responseTransformer: async (res) => {
       return res.ok ? res.text() : null
     },
-    fallbackAction: async () => {
-      try {
-        const { promises: fs } = await import("fs")
-        // eslint-disable-next-line no-console
-        console.log(
-          "Attempting to read file from filesystem for slug:",
-          path.join(process.cwd(), "app", ...slug, "page.mdx")
-        )
-        return await fs.readFile(
-          path.join(process.cwd(), "app", ...slug, "page.mdx"),
-          "utf-8"
-        )
-      } catch {
-        return null
-      }
-    },
+    fallbackAction: async () => null,
     useRemote: isCloudflare,
   })
+
+  if (fileContent === null) {
+    try {
+      const { promises: fs } = await import("fs")
+      fileContent = await fs.readFile(
+        path.join(process.cwd(), "app", ...slug, "page.mdx"),
+        "utf-8"
+      )
+    } catch {
+      // fallback failed
+    }
+  }
 
   if (!fileContent) {
     return notFound()

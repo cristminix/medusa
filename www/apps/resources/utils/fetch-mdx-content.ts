@@ -33,22 +33,27 @@ export async function fetchMdxContent(
 
   // app/ pages: derive app-relative path and use workerCompatibleFetch
   const relPath = filePathFromMap.replace(/^.*\/app\//, "")
-  return workerCompatibleFetch<string | null>({
+  const content = await workerCompatibleFetch<string | null>({
     url: `${baseUrl}/raw-mdx/${relPath}`,
     responseTransformer: async (res) => {
       return res.ok ? res.text() : null
     },
-    fallbackAction: async () => {
-      try {
-        const { promises: fs } = await import("fs")
-        return await fs.readFile(
-          path.join(process.cwd(), "app", relPath),
-          "utf-8"
-        )
-      } catch {
-        return null
-      }
-    },
+    fallbackAction: async () => null,
     useRemote: isCloudflare,
   })
+
+  if (content !== null) {
+    return content
+  }
+
+  // fallback to reading from disk when remote fetch fails
+  try {
+    const { promises: fs } = await import("fs")
+    return await fs.readFile(
+      path.join(process.cwd(), "app", relPath),
+      "utf-8"
+    )
+  } catch {
+    return null
+  }
 }
