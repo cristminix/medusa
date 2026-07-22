@@ -1,0 +1,21 @@
+**/node_modules
+**/.next
+**/.turbo
+
+www/.yarn/*
+!www/.yarn/patches
+!www/.yarn/plugins
+!www/.yarn/releases
+!www/.yarn/sdks
+!www/.yarn/versions
+
+# The image installs with the node-modules linker. Local PnP artifacts would
+# hijack Node's ESM loader and break the build (ERR_LOADER_CHAIN_INCOMPLETE).
+**/.pnp.cjs
+**/.pnp.loader.mjs
+**/.yarn/install-state.gz
+
+# Only the www docs site is built in this image
+packages
+integration-tests
+.git
